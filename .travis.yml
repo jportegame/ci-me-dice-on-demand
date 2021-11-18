@@ -5,12 +5,15 @@ jobs:
   - stage: test
     script: python3 -m pytest -v tests/test_dice.py
   - stage: deploy to staging eviroment
+    script: skip
     deploy:
       provider: heroku
       api_key: "$HEROKU_AUTH_TOKEN"
       app: ci-me-dice-on-demand-dev
       on:
         branch: main
+  - stage: test staging
+    script: curl https://ci-me-dice-on-demand-dev.herokuapp.com/
 notifications:
   slack:
     secure: Aqb/69lTpFO5mnEJZefb8A/Ll/dZPdCBSQxjlEq3GMJWz8AxConCVk0Urbcxqk2I05oKNk0EXlOESy8eKB8HAYkd2GdfOdPtYunE1M6je4eIgEL12+T4lj29xH2YQ+8uO94xfRRbm1qDRpXaaO5JHq2qV+k9gMC0NNLQ/imPBeL3fb0RdjkZ73gNK1Nd2eVl/CjJS1Pi6nY7ROmRpPeEEoOWl3wtzoX54ePuOmzD+fgMvi2oEPh5PzjUnk0KxiSO+slnJ4TtwAnppMsZIicaNfFr5NhUtEYZTk4IJ2sXba5C3MgEVHP5OjqaYf14ocmL0XCQsn8uHEyzkFsCXnNBk8JUmlxOu3n9IjlY/taaOFR8ETCFrFGvgSzhXYJHvQn3pRGu4tyezK9YS4Pc2FIQrBxchndcyq0D2TfnYIGCTVzniy9kxJl/o4tMaBaYChLzw/FC1lq9NH5UJ8td2TCeUBc+m+IxXKuz+q+6Wd1SrYBKPNU9imOeQsAjx6Vj54AyIFw1atN/0xNZAeA12y5QhKy3+OXsMQbyXSpkDFd4jXkV8ZRhA4IERfQnfrXMSM93YHsTK88OWOSogcFZZWz0clDy9Pnjg9+6EybeDd8AdXRxcBIpGKcLnifcR1LoMDfHxh3bAJ5II5brWFoG/sLyLxb2M2ANxHymzp3p+VGVCM8=
